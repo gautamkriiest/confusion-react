@@ -1,17 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap';
 
-class Dishdetail extends Component {
 
-    componentDidMount() {
-        console.log('Dishdetail component componentDidMount Invoked!');
-    }
-
-    componentDidUpdate() {
-        console.log('Dishdetail component componentDidUpdate Invoked!');
-    }
-
-    renderComments(comments) {
+    function RenderComments({comments}) {
         if (comments == null) {
             return (<div></div>);
         }
@@ -41,7 +32,7 @@ class Dishdetail extends Component {
         );
     }
 
-    renderDish(dish) {
+    function RenderDish({dish}) {
         if (dish != null) {
             return (
                 <div className='col-12 col-md-5 m-1'>
@@ -60,23 +51,39 @@ class Dishdetail extends Component {
         }
     }
 
-    render() {
+    const DishDetail = (props) => {
         console.log('Dishdetail component render Invoked!');
-        const dish = this.props.dish
-        if (dish == null) {
-            return (<div></div>)
-        }
-        const dishItem = this.renderDish(dish)
-        const commentItem = this.renderComments(dish.comments)
-        return (
-            <div className="container">
-                <div className='row'>
-                    {dishItem}
-                    {commentItem}
-                </div>
-            </div>
-        );
-    }
-}
 
-export default Dishdetail;
+        if(props.dish != null){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <RenderDish dish={props.dish}/>
+                        <RenderComments comments={props.dish.comments}/>
+                    </div>
+                </div>
+            );
+        }
+        else{
+            return(
+                <div></div>
+            );
+        }
+
+        // const dish = props.dish
+        // if (props.dish =    = null) {
+        //     return (<div></div>)
+        // }
+        // const dishItem = RenderDish(dish)
+        // const commentItem = RenderComments(dish.comments)
+        // return (
+        //     <div className="container">
+        //         <div className='row'>
+        //             {dishItem}
+        //             {commentItem}
+        //         </div>
+        //     </div>
+        // );
+    }
+
+export default DishDetail;
